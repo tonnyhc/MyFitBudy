@@ -1,26 +1,30 @@
 import { NavLink, useLocation } from "react-router-dom";
-import { useContext, useRef, useState } from "react";
+import { useRef, useState } from "react";
 
 import { HiBars3 } from "react-icons/hi2";
 import { PiBarbell, PiBarbellFill } from "react-icons/pi";
 import { GoHomeFill, GoHome } from "react-icons/go";
 import MoreSideNav from "./MoreSideNav";
 import useClickOutside from "../../hooks/useClickOutside";
-// import { UtilityContext } from "../../contexts/UtilityContext";
 
-const Navigation = ({ children }) => {
+function Navigation({ children }) {
   const location = useLocation();
   const isActiveLink = (path) => location.pathname === path;
   const [isMoreClicked, setIsMoreClicked] = useState(false);
+
   function onMoreClick(e) {
     setIsMoreClicked(true);
-    console.log(isMoreClicked);
+  }
+  const closeSideNav = () => {
+    setIsMoreClicked(false);
   }
 
   const moreSideNavRef = useRef(null);
   useClickOutside(moreSideNavRef, () => {
-    setIsMoreClicked(false);
+    closeSideNav();
   });
+
+
 
   const navItems = [
     {
@@ -37,11 +41,11 @@ const Navigation = ({ children }) => {
 
   return (
     <>
-      {isMoreClicked && <MoreSideNav ref={moreSideNavRef} />}
+      {isMoreClicked && <MoreSideNav closeNav={closeSideNav} ref={moreSideNavRef} />}
       <div className="fixed z-10 w-full text-white px-2 top-0 pb-[6px] bg-primary-bg-dark">
         <div className="flex flex-row justify-between text-4xl h-12 items-center">
           <div onClick={onMoreClick}>
-            {<HiBars3 style={{ color: "FFF" }} />}
+            {<HiBars3 id='openMoreNavigation' style={{ color: "FFF" }} />}
           </div>
           <div className="w-9 h-9 rounded-full overflow-hidden">
             <img
@@ -66,7 +70,7 @@ const Navigation = ({ children }) => {
       >
         {navItems.map((item) => (
           <li>
-            <NavLink to={item.path} exact>
+            <NavLink onClick={closeSideNav} to={item.path} exact>
               {isActiveLink(item.path) ? item.activeIcon : item.icon}
             </NavLink>
           </li>

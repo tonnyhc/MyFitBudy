@@ -3,6 +3,9 @@ import { useEffect } from 'react';
 const useClickOutside = (ref, callback) => {
   useEffect(() => {
     const handleClickOutside = (event) => {
+      if(event.target.id === 'openMoreNavigation'){
+        return;
+      }
       if (ref.current && !ref.current.contains(event.target)) {
         callback();
       }

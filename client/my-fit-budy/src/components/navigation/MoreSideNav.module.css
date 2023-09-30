@@ -1,13 +1,13 @@
 @keyframes sideNavAnimationIn {
   0% {
-    right: 100%;
+    left: -100%;
   }
   100% {
-    left: 100%;
+    left: 0%;
   }
 }
 
 .animateSideNav{
-  animation: sideNavAnimationIn .3s linear;
+  animation: sideNavAnimationIn .2s linear;
 }
 

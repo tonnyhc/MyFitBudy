@@ -3,10 +3,11 @@ import { Link } from "react-router-dom";
 import {AiOutlinePlus} from 'react-icons/ai'
 import { PiBarbellDuotone } from "react-icons/pi";
 import styles from "./MoreSideNav.module.css";
+import { forwardRef } from "react";
 
-const SideNavItem = ({ icon, text, path }) => {
+const SideNavItem = ({ icon, text, path, onClick }) => {
   return (
-    <li className="mb-2">
+    <li onClick={onClick} className="mb-2">
       <Link
         to={path}
         className="flex items-center gap-2 font text-lg tracking-wider"
@@ -18,7 +19,8 @@ const SideNavItem = ({ icon, text, path }) => {
   );
 };
 
-const MoreSideNav = ({ ref }) => {
+const MoreSideNav = forwardRef(function MoreSideNav(props,ref){
+  const {closeNav} ={...props}
   const navItems = [
     {
       icon: <PiBarbellDuotone />,
@@ -52,13 +54,13 @@ const MoreSideNav = ({ ref }) => {
         </div>
 
         <ul className="mt-5">
-          {navItems.map((item) => (
-            <SideNavItem icon={item.icon} text={item.text} path={item.path} />
+          {navItems.map((item, index) => (
+            <SideNavItem key={index} onClick={closeNav} icon={item.icon} text={item.text} path={item.path} />
           ))}
         </ul>
       </div>
     </div>
   );
-};
+});
 
-export default MoreSideNav;
+export default MoreSideNav
