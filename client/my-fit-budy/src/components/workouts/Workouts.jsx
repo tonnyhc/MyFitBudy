@@ -1,8 +1,7 @@
 import WorkoutPlanCard from "./workout-plan-card/WorkoutPlanCard";
-
 const Workouts = () => {
   return (
-    <>
+    <div className='overflow-y-auto h-full'>
       <WorkoutPlanCard />
       <WorkoutPlanCard />
       <WorkoutPlanCard />
@@ -16,7 +15,7 @@ const Workouts = () => {
       <WorkoutPlanCard />
       <WorkoutPlanCard />
       <WorkoutPlanCard />
-    </>
+    </div>
   );
 };
 
