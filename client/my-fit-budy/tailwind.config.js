@@ -14,8 +14,12 @@ module.exports = {
           "sideNavAnimation .3s linear",
       },
       colors: {
-        'primary-bg-dark': '#191B20',
-        'primary-active-blue': '#3C7AB3'
+        'primary-bg-dark': '#00000',
+        'primary-active-blue': '#3C7AB3',
+        'button-red': 'rgba(120, 38, 18,255)',
+        'grey-bg': "#3c3c3c",
+        'nav-bg-dark': "#2c2c2c",
+        'nav-pils-color': "#808080"
       }
     },
   },
