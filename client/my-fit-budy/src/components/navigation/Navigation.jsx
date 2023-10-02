@@ -29,20 +29,20 @@ function Navigation({ children }) {
   const navItems = [
     {
       path: "/",
-      activeIcon: <GoHomeFill className="fill-primary-active-blue" />,
-      icon: <GoHome className="text-white" />,
+      activeIcon: <GoHomeFill className="fill-white" />,
+      icon: <GoHome className="text-nav-pills-collor" />,
     },
     {
       path: "/workouts",
-      activeIcon: <PiBarbellFill className="fill-primary-active-blue" />,
-      icon: <PiBarbell className="text-white" />,
+      activeIcon: <PiBarbellFill className="fill-white" />,
+      icon: <PiBarbell className="text-nav-pills-collor" />,
     },
   ];
 
   return (
     <>
       {isMoreClicked && <MoreSideNav closeNav={closeSideNav} ref={moreSideNavRef} />}
-      <div className="fixed z-10 w-full text-white px-2 top-0 pb-[6px] bg-primary-bg-dark">
+      <div className="fixed z-10 w-full text-white px-2 top-0 pb-[6px]">
         <div className="flex flex-row justify-between text-4xl h-12 items-center">
           <div onClick={onMoreClick}>
             {<HiBars3 id='openMoreNavigation' style={{ color: "FFF" }} />}
@@ -65,12 +65,12 @@ function Navigation({ children }) {
       {children}
 
       <ul
-        className="flex flex-row justify-between fixed z-10 w-full bottom-0 px-2 text-4xl h-12 items-center"
+        className="flex flex-row justify-between fixed z-10 w-full bottom-0 px-2 text-4xl h-12 items-center bg-nav-bg-dark"
         role="list"
       >
-        {navItems.map((item) => (
-          <li>
-            <NavLink onClick={closeSideNav} to={item.path} exact>
+        {navItems.map((item, index) => (
+          <li key={index}>
+            <NavLink className='text-nav-pils-color' onClick={closeSideNav} to={item.path} exact>
               {isActiveLink(item.path) ? item.activeIcon : item.icon}
             </NavLink>
           </li>

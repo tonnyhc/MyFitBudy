@@ -8,6 +8,7 @@ body{
   font-family: -apple-system, BlinkMacSystemFont, 'Roboto Slab', serif;
   height: 100vh;
   background-color: var(--primary-background-dark);
+  overflow: hidden;
 
 }
 
@@ -26,7 +27,7 @@ body{
 } */
 
 :root{
-  --primary-background-dark: #191B20;
+  --primary-background-dark: #000;
   --primary-active-blue: #3C7AB3
   
 }
