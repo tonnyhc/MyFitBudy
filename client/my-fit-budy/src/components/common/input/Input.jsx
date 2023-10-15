@@ -1,60 +1,75 @@
-// const Input = ({ labelText, labelName, inputType }) => {
-//   return (
-//     <div className="relative group">
-//       <label
-//         className="absolute top-0 py-[14px] px-[6px] text-xs group-focus-within:-translate-y-8"
-//         htmlFor={labelName}
-//       >
-//         {labelText}
-//       </label>
-//       <input
-//         className="w-[250px] h-[50px] border-solid focus-within:border-white bg-grey-bg"
-//         type={inputType}
-//         id={labelName}
-//       />
-//     </div>
-//   );
-// };
+import { useEffect, useState } from "react";
 
-// export default Input;
+function getInputSizeStyles(size) {
+  switch (size) {
+    case "xs":
+      return "w-[60px] h-[50px]";
+    case 's':
+      return 'w-[90px] h-[50px]'
+    case "xxl":
+      return "w-[250px] h-[50px]";
 
-import { useState } from "react";
+    default:
+      return 'w-full h-[50px]';
+  }
+}
 
-const Input = ({ labelText, labelName, inputType, placeholder, value }) => {
+const Input = ({
+  labelText,
+  labelName,
+  inputType,
+  placeholder,
+  value,
+  isRequired,
+  onChange,
+  inputSize,
+}) => {
   const [isFocused, setIsFocused] = useState(false);
-
+  const [error, setError] = useState(false);
   const handleFocus = () => {
     setIsFocused(true);
   };
 
   const handleBlur = () => {
-    setIsFocused(value === ""); // Only set to not focused if there's no input value
+    setIsFocused(value === "" ? false : true); // Only set to not focused if there's no input value
+    setError(value === "" && isRequired ? true : false);
   };
 
-  const labelUpStyles = "top-0 text-xs -translate-y-1.5";
+  useEffect(() => {
+    if (value !== "" && value >= 0) {
+      setIsFocused(true);
+    }
+  }, []);
+
+  const inputSizeStyles = getInputSizeStyles(inputSize);
+  const labelUpStyles = "top-0 scale-75 -translate-y-1.5";
   const labelDownStyles = "py-[14px] px-[6px]";
+  const errorInputStyles = "border-red-600 text-red-400";
+  const errorLabelStyles = "text-red-400";
 
   return (
     <div
-      className={`relative group ${isFocused || value ? "input-focused" : ""}`}
+      className={`relative ${inputSizeStyles} group ${isFocused || value ? "input-focused" : ""}`}
     >
       <label
         htmlFor={labelName}
-        className={`${
+        className={`  bg-grey transition-scale-all duration-300 absolute left-2  ${
           isFocused ? labelUpStyles : labelDownStyles
-        } transition-all duration-110 absolute left-2 bg-grey`}
+        } ${error ? errorLabelStyles : "text-white"} `}
       >
         {labelText}
       </label>
       <input
-        className={`w-[250px] h-[50px] border-solid rounded-[10px] ${
+        className={`w-full h-full border rounded-[10px] text-white  bg-grey-bg px-2 ${
           isFocused || value ? "border-white" : "border-gray-300"
-        } bg-grey-bg px-2`}
+        } ${error ? errorInputStyles : ""}`}
         type={inputType}
         id={labelName}
+        name={labelName}
         placeholder={placeholder}
         onFocus={handleFocus}
         onBlur={handleBlur}
+        onChange={onChange}
         value={value}
       />
     </div>
