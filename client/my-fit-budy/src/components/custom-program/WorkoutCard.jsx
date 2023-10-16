@@ -1,7 +1,7 @@
-import { useContext } from "react";
+import { useContext, memo } from "react";
 
-import {CreateCustomWorkoutPlanContext} from '../../contexts/CreateCustomWorkoutContext'
- 
+import { CreateCustomWorkoutPlanContext } from "../../contexts/CreateCustomWorkoutContext";
+
 import { HiPlusSm } from "react-icons/hi";
 
 import Input from "../common/input/Input";
@@ -17,24 +17,19 @@ const WorkoutCard = ({ arrayIndex, isOpened }) => {
   const exercises = currentWorkout.exercises;
   const [openedExercisesCardIndex, setOpenedExerciseCardIndex] = useState("");
   function onAddExercise() {
-    dispatch({type: 'addExerciseToWorkout', payload: arrayIndex})
+    dispatch({ type: "addExerciseToWorkout", payload: arrayIndex });
   }
 
   function openExerciseCard(e, index) {
     setOpenedExerciseCardIndex(index);
   }
 
-  // function onChangeExercise(e, index) {
-  //   const field = e.target.name;
-  //   const value = e.target.value;
-  //   const exerciseToChange = exercises[index];
-  //   exerciseToChange[field] = value;
-  //   setExercises((oldExercises) => [...oldExercises, exerciseToChange]);
-  // }
-
-  function onChangeWorkoutName(e){
+  function onChangeWorkoutName(e) {
     e.preventDefault();
-    dispatch({type: 'changeWorkoutName', payload: {index: arrayIndex, name: e.target.value}});
+    dispatch({
+      type: "changeWorkoutName",
+      payload: { index: arrayIndex, name: e.target.value },
+    });
   }
 
   return (
@@ -54,9 +49,8 @@ const WorkoutCard = ({ arrayIndex, isOpened }) => {
 
       {exercises.map((exercise, index) => (
         <ExerciseCard
-          // onChange={onChangeExercise}
           workoutIndex={arrayIndex}
-          index={index}
+          exerciseIndex={index}
           exerciseName={exercise.name}
           isOpened={index == openedExercisesCardIndex}
           openCardClick={(e) => openExerciseCard(e, index)}
@@ -77,4 +71,4 @@ const WorkoutCard = ({ arrayIndex, isOpened }) => {
   );
 };
 
-export default WorkoutCard;
+export default memo(WorkoutCard);
